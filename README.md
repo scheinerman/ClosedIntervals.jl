@@ -177,3 +177,32 @@ julia> C*D
 julia> C+D
 [1,6]
 ```
+
+Infinite Intervals
+------------------
+
+When intervals with end points of type `Float64`, it is possible to
+construct and operate with infinite intervals. Everything works as one
+might expect.
+```julia
+julia> A = ClosedInterval(0., Inf)
+[0.0,Inf]
+
+julia> B = ClosedInterval(1., -Inf)
+[-Inf,1.0]
+
+julia> A*B
+[0.0,1.0]
+
+julia> A+B
+[-Inf,Inf]
+
+julia> length(A)
+Inf
+
+julia> in(2.,A)
+true
+
+julia> in(2.,B)
+false
+```
