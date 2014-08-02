@@ -181,7 +181,7 @@ Infinite Intervals
 ------------------
 
 When intervals have end points of type `Float64`, it is possible to
-construct and operate with infinite intervals. Everything works as one
+work with infinite intervals. Everything works as one
 might expect.
 ```julia
 julia> A = ClosedInterval(0., Inf)
