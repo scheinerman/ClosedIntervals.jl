@@ -181,7 +181,7 @@ julia> C+D
 Infinite Intervals
 ------------------
 
-When intervals with end points of type `Float64`, it is possible to
+When intervals have end points of type `Float64`, it is possible to
 construct and operate with infinite intervals. Everything works as one
 might expect.
 ```julia
