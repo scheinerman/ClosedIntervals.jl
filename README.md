@@ -1,3 +1,5 @@
-# ClosedIntervals
+ClosedIntervals
+===============
 
-[![Build Status](https://travis-ci.org/scheinerman/ClosedIntervals.jl.png)](https://travis-ci.org/scheinerman/ClosedIntervals.jl)
+A `ClosedInterval` represents a set of the form `[a,b] = {x: a <= x <= b}`.
+
