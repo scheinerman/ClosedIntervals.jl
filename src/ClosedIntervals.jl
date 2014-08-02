@@ -23,15 +23,15 @@ end
 
 # Construct from a 2-tuple
 function ClosedInterval{T}(ab::(T,T))
-    return ClosedInterval(ab[1],ab[2],false)
+    return ClosedInterval(ab[1],ab[2]) # use 2-arg to test order
 end
 
 # Construct from one end point: assume L and R are the same
-ClosedInterval{T}(a::T) = ClosedInterval(a,a)
+ClosedInterval{T}(a::T) = ClosedInterval(a,a,false)
 
 # Construction with no specified end points: assume [0,1]
 function ClosedInterval(T::DataType = Float64) 
-    ClosedInterval(zero(T),one(T))
+    ClosedInterval(zero(T),one(T),false)
 end
 
 # Create an empty interval 
