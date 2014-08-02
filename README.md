@@ -1,6 +1,5 @@
 **Note**: This type does not define interval arithmetic.
 
-
 ClosedIntervals
 ===============
 
