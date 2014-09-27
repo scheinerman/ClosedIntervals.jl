@@ -25,7 +25,7 @@ julia> ClosedInterval(1, 2.3)
 ERROR: no method ClosedInterval{T}(Int64,Float64)
 ```
 
-This example illustrates a few points.  
+This example illustrates a few points.
 
 * First, interval is printed in standard mathematical notation using
 square brackets. 
@@ -205,3 +205,37 @@ true
 julia> in(2.,B)
 false
 ```
+
+Comparison
+----------
+
+The usual comparison operators may be applied to pairs of
+intervals. As usual, equality may be checked with `==` (or
+`isequal`).
+
+We also define `isless` for intervals as follows. An empty interval is
+defined to be less than all nonempty intervals. Otherwise, we sort
+intervals lexicographically. That is, interval `[a,b]` is less than
+`[c,d]` provided either (a) `a<c` or (b) `(a==c) && (b<d)`.
+
+Intervals of mixed type may be compared. For example:
+```julia
+julia> A = ClosedInterval(1,2)
+[1,2]
+
+julia> B = ClosedInterval(1.,2.)
+[1.0,2.0]
+
+julia> A==B
+true
+
+julia> A = ClosedInterval(-Inf,3.)
+[-Inf,3.0]
+
+julia> B = ClosedInterval(3,5)
+[3,5]
+
+julia> A < B
+true
+```
+

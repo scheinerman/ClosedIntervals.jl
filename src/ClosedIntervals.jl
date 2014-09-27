@@ -1,9 +1,9 @@
 module ClosedIntervals
 
 import Base.show, Base.isempty, Base.in, Base.length
+import Base.isequal, Base.isless
 export ClosedInterval, EmptyInterval
 export show, left, right
-
 
 # Create the ClosedInterval type
 immutable ClosedInterval{T<:Real}
@@ -11,7 +11,6 @@ immutable ClosedInterval{T<:Real}
     R::T       # right end point
     nil::Bool  # signal if this is an empty interval
 end
-
 
 # Construct from two distinct end points
 function ClosedInterval{T}(l::T,r::T)
@@ -116,6 +115,34 @@ function +{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
     b::T = max(J.R, K.R)   # right end point of result
 
     return ClosedInterval(a,b,false)
+end
+
+# Compare intervals for equality
+function isequal(I::ClosedInterval, J::ClosedInterval)
+    return I.nil == J.nil || (I.L==J.L && I.R==J.R)
+end
+
+==(I::ClosedInterval, J::ClosedInterval) = isequal(I,J)
+
+# Sort intervals lexicographically, but put empty intervals at the
+# bottom of the order.
+function isless(I::ClosedInterval, J::ClosedInterval)
+    if J.nil
+        return false
+    end
+    if I.nil
+       return true
+    end
+       
+    if I.L < J.L 
+        return true
+    end
+
+    if I.L > J.L
+        return false
+    end
+
+    return I.R < J.R
 end
 
 end # module
