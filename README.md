@@ -81,7 +81,7 @@ with nothing between.
 Properties
 ----------
 
-The function `left` and `right` are used to retrieve the left and
+The functions `left` and `right` are used to retrieve the left and
 right end points of an interval. Use `length` to get the length of the
 interval (difference of the end points).
 ```julia
