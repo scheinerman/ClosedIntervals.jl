@@ -119,7 +119,7 @@ end
 
 # Compare intervals for equality
 function isequal(I::ClosedInterval, J::ClosedInterval)
-    return I.nil == J.nil || (I.L==J.L && I.R==J.R)
+    return (I.nil && J.nil) || (I.L==J.L && I.R==J.R)
 end
 
 ==(I::ClosedInterval, J::ClosedInterval) = isequal(I,J)
