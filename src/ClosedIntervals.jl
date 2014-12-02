@@ -1,6 +1,6 @@
 module ClosedIntervals
 
-import Base.show, Base.isempty, Base.in, Base.length
+import Base.show, Base.isempty, Base.in, Base.length, Base.<<, Base.>>
 import Base.isequal, Base.isless
 export ClosedInterval, EmptyInterval
 export show, left, right
@@ -29,11 +29,11 @@ end
 ClosedInterval{T}(a::T) = ClosedInterval(a,a,false)
 
 # Construction with no specified end points: assume [0,1]
-function ClosedInterval(T::DataType = Float64) 
+function ClosedInterval(T::DataType = Float64)
     ClosedInterval(zero(T),one(T),false)
 end
 
-# Create an empty interval 
+# Create an empty interval
 function EmptyInterval(T::DataType = Float64)
     return ClosedInterval(zero(T),zero(T), true)
 end
@@ -83,7 +83,7 @@ end
 # The intersection of two intervals is the largest interval contained
 # in both. If the intervals are disjoint, we return an empty interval.
 function *{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
-    
+
     # if either interval is nil, so is their *
     if J.nil || K.nil
         return EmptyInterval(T)
@@ -103,7 +103,7 @@ end
 # both. This is the same as their union if they overlap.
 function +{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
     # The empty interval acts as an identity element for this
-    # operation, so we check if either interval is empty first.    
+    # operation, so we check if either interval is empty first.
     if J.nil
         return K
     end
@@ -133,8 +133,8 @@ function isless(I::ClosedInterval, J::ClosedInterval)
     if I.nil
        return true
     end
-       
-    if I.L < J.L 
+
+    if I.L < J.L
         return true
     end
 
@@ -144,5 +144,17 @@ function isless(I::ClosedInterval, J::ClosedInterval)
 
     return I.R < J.R
 end
+
+
+# We use << to mean "completely to the left of"
+function <<(I::ClosedInterval, J::ClosedInterval)
+    if I.nil || J.nil
+        return false
+    end
+    return I.R < J.L
+end
+
+# Likewise, >> means "completely to the right of"
+>>(I::ClosedInterval, J::ClosedInterval) = J << I
 
 end # module

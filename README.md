@@ -209,9 +209,13 @@ false
 Comparison
 ----------
 
+###Equality
+
 The usual comparison operators may be applied to pairs of
 intervals. As usual, equality may be checked with `==` (or
 `isequal`).
+
+###Lexicographic total order
 
 We also define `isless` for intervals as follows. An empty interval is
 defined to be less than all nonempty intervals. Otherwise, we sort
@@ -239,3 +243,26 @@ julia> A < B
 true
 ```
 
+###Completely-to-the-left-of partial order
+
+We use `<<` to test if one interval is completely to the left of another. That is `[a,b]<<[c,d]` exactly when `b<c`. In this case, comparing an empty interval to any other yields `false`. Likewise, we use `>>` to test if one interval is to the right of another. 
+```julia
+julia> A = ClosedInterval(1,5); 
+
+julia> B = ClosedInterval(3,8); 
+
+julia> C = ClosedInterval(7,9);
+
+julia> A<<B
+false
+
+julia> A<<C
+true
+
+julia> B<<C
+false
+
+julia> C>>A
+true
+
+```
