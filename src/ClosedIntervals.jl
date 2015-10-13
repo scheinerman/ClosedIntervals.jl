@@ -35,11 +35,18 @@ function ClosedInterval(T::DataType = Float64)
 end
 
 # Create an empty interval
+"""
+`EmptyInterval(T::DataType = Float64)` creates an empty
+`ClosedInterval` of a given type.
+"""
 function EmptyInterval(T::DataType = Float64)
     return ClosedInterval(zero(T),zero(T), true)
 end
 
 # Fetch the left end point
+"""
+For a `ClosedInterval` `I`, `left(I)` returns its left end point.
+"""
 function left(J::ClosedInterval)
     if isempty(J)
         error("An empty interval does not have a left end point")
@@ -48,6 +55,9 @@ function left(J::ClosedInterval)
 end
 
 # Fetch the right end point
+"""
+For a `ClosedInterval` `I`, `right(I)` returns its right end point.
+"""
 function right(J::ClosedInterval)
     if isempty(J)
         error("An empty interval does not have a right end point")
@@ -56,6 +66,9 @@ function right(J::ClosedInterval)
 end
 
 # Is this an empty interval?
+"""
+For a `ClosedInterval I`, `isempty(I)` tests if `I` is an empty interval.
+"""
 isempty(J::ClosedInterval) = J.nil
 
 # Print as a closed interval should be printed
@@ -69,6 +82,9 @@ end
 
 # The length of an interval is R-L unless it's empty. In that case, we
 # throw an error.
+"""
+`length(I)` is the length of the `ClosedInterval` `I`.
+"""
 function length(J::ClosedInterval)
     if isempty(J)
         error("The length of an empty interval is undefined")
@@ -77,12 +93,19 @@ function length(J::ClosedInterval)
 end
 
 # Test point for membership
+"""
+For a number `x` and a `ClosedInterval` `I` (of the same type)
+`in(x,I)` tests if `x` is contained in the interval `I`.
+"""
 function in{T}(x::T, J::ClosedInterval{T})
     return J.L <= x <= J.R
 end
 
 # The intersection of two intervals is the largest interval contained
 # in both. If the intervals are disjoint, we return an empty interval.
+"""
+For `ClosedInterval`s `I` and `J`, `I*J` is their intersection.
+"""
 function *{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
 
     # if either interval is nil, so is their *
@@ -102,6 +125,11 @@ end
 
 # The + of two intervals is the smallest interval containing them
 # both. This is the same as their union if they overlap.
+
+"""
+For `ClosedInterval`s `I` and `J`, `I+J` is the smallest `ClosedInterval`
+containing them both.
+"""
 function +{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
     # The empty interval acts as an identity element for this
     # operation, so we check if either interval is empty first.
@@ -127,6 +155,9 @@ end
 
 # Sort intervals lexicographically, but put empty intervals at the
 # bottom of the order.
+"""
+Lexicographic ordering of `ClosedInterval`s.
+"""
 function isless(I::ClosedInterval, J::ClosedInterval)
     if J.nil
         return false
@@ -148,6 +179,10 @@ end
 
 
 # We use << to mean "completely to the left of"
+"""
+For `ClosedInterval`s `I` and `J`, `I<<J` tests if `I` is completely
+to the left of `J`.
+"""
 function <<(I::ClosedInterval, J::ClosedInterval)
     if I.nil || J.nil
         return false
@@ -156,6 +191,10 @@ function <<(I::ClosedInterval, J::ClosedInterval)
 end
 
 # Likewise, >> means "completely to the right of"
+"""
+For `ClosedInterval`s `I` and `J`, `I>>J` tests if `I` is completely
+to the right of `J`.
+"""
 >>(I::ClosedInterval, J::ClosedInterval) = J << I
 
 end # module
