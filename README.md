@@ -28,7 +28,7 @@ ERROR: no method ClosedInterval{T}(Int64,Float64)
 This example illustrates a few points.
 
 * First, interval is printed in standard mathematical notation using
-square brackets. 
+square brackets.
 
 * Second, the end points can be specified in either order.
 
@@ -38,7 +38,7 @@ square brackets.
 way to create the interval from 1 to 2.3 is `ClosedInterval(1.,2.3)`.
 
 
-The two end points of the interval may be the same, in which case 
+The two end points of the interval may be the same, in which case
 it is enough to name only one of the end points:
 ```julia
 julia> ClosedInterval(5)
@@ -48,7 +48,7 @@ julia> ClosedInterval(5)
 If no arguments are provided to `ClosedInterval` the result is the
 unit interval [0,1] with `Float64` end points. Or, if we supply a
 type `T`, then the result is again [0,1], but with type `T` end
-points. 
+points.
 ```julia
 julia> ClosedInterval()
 [0.0,1.0]
@@ -142,7 +142,7 @@ generate an error, but will always return `false`.
 Operations
 ----------
 
-Two operations are defined for intervals. 
+Two operations are defined for intervals.
 
 * The intersection `*` is the largest interval contained in both. If
   the intervals are disjoint, this returns an empty interval.
@@ -245,11 +245,14 @@ true
 
 ###Completely-to-the-left-of partial order
 
-We use `<<` to test if one interval is completely to the left of another. That is `[a,b]<<[c,d]` exactly when `b<c`. In this case, comparing an empty interval to any other yields `false`. Likewise, we use `>>` to test if one interval is to the right of another. 
+We use `<<` to test if one interval is completely to the left of another.
+That is `[a,b]<<[c,d]` exactly when `b<c`. In this case, comparing an
+empty interval to any other yields `false`. Likewise, we use `>>`
+to test if one interval is to the right of another.
 ```julia
-julia> A = ClosedInterval(1,5); 
+julia> A = ClosedInterval(1,5);
 
-julia> B = ClosedInterval(3,8); 
+julia> B = ClosedInterval(3,8);
 
 julia> C = ClosedInterval(7,9);
 
@@ -265,4 +268,35 @@ false
 julia> C>>A
 true
 
+```
+
+## Non-numeric end points
+
+Normally, the end points of a `ClosedInterval` are real numbers
+(subtypes of `Real`).
+However, we do permit the end point types to be any Julia objects
+that can be compared with `<`. For example:
+```julia
+julia> J = ClosedInterval("charlie", "bravo")
+[bravo,charlie]
+
+julia> K = ClosedInterval("oscar", "yankee")
+[oscar,yankee]
+
+julia> J+K
+[bravo,yankee]
+
+julia> in("romeo", K)
+true
+```
+However, some operations will fail if they rely on numeric
+operations. For example:
+```julia
+julia> length(J)
+ERROR: MethodError: `-` has no method matching -(::ASCIIString, ::ASCIIString)
+ in length at /home/ers/.julia/v0.4/ClosedIntervals/src/ClosedIntervals.jl:92
+
+julia> J*K
+ERROR: MethodError: `zero` has no method matching zero(::Type{ASCIIString})
+ in * at /home/ers/.julia/v0.4/ClosedIntervals/src/ClosedIntervals.jl:120
 ```
