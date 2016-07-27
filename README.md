@@ -21,21 +21,18 @@ julia> a = (6,0)
 julia> ClosedInterval(a)
 [0,6]
 
-julia> ClosedInterval(1, 2.3)
-ERROR: no method ClosedInterval{T}(Int64,Float64)
+julia> ClosedInterval(1, 2.3)  # type promotion of end point
+[1.0,2.3]
 ```
 
 This example illustrates a few points.
 
 * First, interval is printed in standard mathematical notation using
 square brackets.
-
 * Second, the end points can be specified in either order.
-
 * Third, the interval can be constructed from a tuple.
-
-* Finally, the type of the two end points must be the same. The proper
-way to create the interval from 1 to 2.3 is `ClosedInterval(1.,2.3)`.
+* Finally, the type of the two end points need not be the same. Julia's promotion mechanism selects an appropriate
+common type for the two end points.
 
 
 The two end points of the interval may be the same, in which case
@@ -98,16 +95,9 @@ julia> length(A)
 4
 ```
 
-Empty intervals have `length` equal to zero. The `left` and
-`right` functions applied to empty intervals throw an error.
-
-Applying any of these to an empty interval throws an error:
-```julia
-julia> left(X)
-ERROR: An empty interval does not have a left end point
- in left at /home/..../ClosedIntervals.jl:45
-```
-
+Empty intervals have `length` equal to zero.
+The `left` and `right` functions applied to empty
+intervals throw an error.
 Use `isempty` to test if an interval is empty.
 ```julia
 julia> isempty(A)
@@ -134,8 +124,8 @@ julia> X = EmptyInterval(Int)
 julia> in(0,A)
 false
 ```
-Notice that testing for membership in an empty interval does not
-generate an error, but will always return `false`.
+Notice that testing for membership in an empty interval
+always return `false`.
 
 
 Operations
@@ -143,12 +133,13 @@ Operations
 
 Two operations are defined for intervals.
 
-* The intersection `*` is the largest interval contained in both. If
-  the intervals are disjoint, this returns an empty interval.
-
-* The sum `+` is the smallest interval containing both. If the
-  intervals overlap, then this is the same as their union. Note that
-  the empty interval serves as an identity element for this operation.
+* The intersection `*` is the largest interval contained
+in both. If the intervals are disjoint, this returns an
+empty interval.
+* The sum `+` is the smallest interval containing both.
+If the  intervals overlap, then this is the same as their
+union. Note that the empty interval serves as an identity
+element for this operation.
 
 ```julia
 julia> A = ClosedInterval(1,5)
@@ -179,9 +170,9 @@ julia> C+D
 Infinite Intervals
 ------------------
 
-When intervals have end points of type `Float64`, it is possible to
-work with infinite intervals. Everything works as one
-might expect.
+When intervals have end points are floating points numbers,
+it is possible to work with infinite intervals.
+Everything works as one might expect.
 ```julia
 julia> A = ClosedInterval(0., Inf)
 [0.0,Inf]

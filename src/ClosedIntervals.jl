@@ -14,7 +14,7 @@ immutable ClosedInterval{T}
 end
 
 # Construct from two distinct end points
-function ClosedInterval{S<:Real,T<:Real}(l::S,r::T)
+function ClosedInterval(l,r)
     (a,b) = promote(l,r)
     if a>b
         a,b = b,a
@@ -23,12 +23,12 @@ function ClosedInterval{S<:Real,T<:Real}(l::S,r::T)
 end
 
 # Construct from a 2-tuple
-function ClosedInterval{S<:Real,T<:Real}(ab::Tuple{S,T})
+function ClosedInterval{S,T}(ab::Tuple{S,T})
     return ClosedInterval(ab[1],ab[2]) # use 2-arg to test order
 end
 
 # Construct from one end point: assume L and R are the same
-ClosedInterval{T<:Real}(a::T) = ClosedInterval(a,a,false)
+ClosedInterval(a) = ClosedInterval(a,a,false)
 
 # Construction with no specified end points: assume [0,1]
 function ClosedInterval(T::DataType = Float64)
@@ -98,7 +98,7 @@ end
 For a number `x` and a `ClosedInterval` `I` (of the same type)
 `in(x,I)` tests if `x` is contained in the interval `I`.
 """
-function in{T}(x::T, J::ClosedInterval{T})
+function in(x, J::ClosedInterval)
     return J.L <= x <= J.R
 end
 
@@ -107,7 +107,7 @@ end
 """
 For `ClosedInterval`s `I` and `J`, `I*J` is their intersection.
 """
-function *{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
+function *{S,T}(J::ClosedInterval{S}, K::ClosedInterval{T})
 
     # if either interval is nil, so is their *
     if J.nil || K.nil
