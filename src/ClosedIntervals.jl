@@ -2,7 +2,7 @@ module ClosedIntervals
 
 import Base.show, Base.isempty, Base.in, Base.length, Base.<<, Base.>>
 import Base.isequal, Base.isless
-import Base.*, Base.+, Base.==, Base.hash
+import Base.*, Base.+, Base.==, Base.hash, Base.issubset
 export ClosedInterval, EmptyInterval
 export show, left, right
 
@@ -207,6 +207,17 @@ function hash(J::ClosedInterval, h::UInt64=UInt64(0))
   end
   v = [J.L, J.R]
   return hash(v,h)
+end
+
+function issubset(J::ClosedInterval, K::ClosedInterval)
+  if isempty(J)
+    return true
+  end
+  if isempty(K)
+    return false
+  end
+
+  return in(J.L,K) && in(J.R,K)
 end
 
 end # module

@@ -129,6 +129,7 @@ Notice that testing for membership in an empty interval
 always return `false`.
 
 
+
 Operations
 ----------
 
@@ -205,6 +206,11 @@ Comparison
 The usual comparison operators may be applied to pairs of
 intervals. As usual, equality may be checked with `==` (or
 `isequal`).
+
+
+### Subset
+
+Use `issubset(J,K)` to  test if `J` is contained in `J`.
 
 ###Lexicographic total order
 
