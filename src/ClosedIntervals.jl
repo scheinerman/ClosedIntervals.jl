@@ -14,20 +14,21 @@ immutable ClosedInterval{T}
 end
 
 # Construct from two distinct end points
-function ClosedInterval{T}(l::T,r::T)
-    if l>r
-        (l,r) = (r,l)
+function ClosedInterval{S<:Real,T<:Real}(l::S,r::T)
+    (a,b) = promote(l,r)
+    if a>b
+        a,b = b,a
     end
-    return ClosedInterval(l,r,false)
+    return ClosedInterval(a,b,false)
 end
 
 # Construct from a 2-tuple
-function ClosedInterval{T}(ab::Tuple{T,T})
+function ClosedInterval{S<:Real,T<:Real}(ab::Tuple{S,T})
     return ClosedInterval(ab[1],ab[2]) # use 2-arg to test order
 end
 
 # Construct from one end point: assume L and R are the same
-ClosedInterval{T}(a::T) = ClosedInterval(a,a,false)
+ClosedInterval{T<:Real}(a::T) = ClosedInterval(a,a,false)
 
 # Construction with no specified end points: assume [0,1]
 function ClosedInterval(T::DataType = Float64)
@@ -85,9 +86,9 @@ end
 """
 `length(I)` is the length of the `ClosedInterval` `I`.
 """
-function length(J::ClosedInterval)
+function length{T}(J::ClosedInterval{T})
     if isempty(J)
-        error("The length of an empty interval is undefined")
+      return zero(T)
     end
     return J.R - J.L
 end

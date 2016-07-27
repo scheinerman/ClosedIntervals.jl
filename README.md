@@ -98,15 +98,14 @@ julia> length(A)
 4
 ```
 
+Empty intervals have `length` equal to zero. The `left` and
+`right` functions applied to empty intervals throw an error.
+
 Applying any of these to an empty interval throws an error:
 ```julia
 julia> left(X)
 ERROR: An empty interval does not have a left end point
  in left at /home/..../ClosedIntervals.jl:45
-
-julia> length(X)
-ERROR: The length of an empty interval is undefined
- in length at /home/..../ClosedIntervals.jl:74
 ```
 
 Use `isempty` to test if an interval is empty.
