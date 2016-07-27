@@ -2,7 +2,7 @@ module ClosedIntervals
 
 import Base.show, Base.isempty, Base.in, Base.length, Base.<<, Base.>>
 import Base.isequal, Base.isless
-import Base.*, Base.+, Base.==
+import Base.*, Base.+, Base.==, Base.hash
 export ClosedInterval, EmptyInterval
 export show, left, right
 
@@ -199,5 +199,14 @@ For `ClosedInterval`s `I` and `J`, `I>>J` tests if `I` is completely
 to the right of `J`.
 """
 >>(I::ClosedInterval, J::ClosedInterval) = J << I
+
+
+function hash(J::ClosedInterval, h::UInt64=UInt64(0))
+  if isempty(J)
+    return hash(false,h)
+  end
+  v = [J.L, J.R]
+  return hash(v,h)
+end
 
 end # module
