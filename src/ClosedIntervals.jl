@@ -107,18 +107,19 @@ end
 """
 For `ClosedInterval`s `I` and `J`, `I*J` is their intersection.
 """
-function *{S,T}(J::ClosedInterval{S}, K::ClosedInterval{T})
+function *(J::ClosedInterval, K::ClosedInterval)
 
+    a = max(J.L, K.L)   # left end point of result
+    b = min(J.R, K.R)   # right end point of result
+
+    a,b = promote(a,b)
     # if either interval is nil, so is their *
     if J.nil || K.nil
-        return EmptyInterval(T)
+        return EmptyInterval(typeof(a))
     end
 
-    a::T = max(J.L, K.L)   # left end point of result
-    b::T = min(J.R, K.R)   # right end point of result
-
     if a>b  # uh oh, they're disjoint
-        return EmptyInterval(T)
+        return EmptyInterval(typeof(a))
     end
 
     return ClosedInterval(a,b,false)
@@ -131,9 +132,10 @@ end
 For `ClosedInterval`s `I` and `J`, `I+J` is the smallest `ClosedInterval`
 containing them both.
 """
-function +{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
+function +(J::ClosedInterval, K::ClosedInterval)
     # The empty interval acts as an identity element for this
     # operation, so we check if either interval is empty first.
+
     if J.nil
         return K
     end
@@ -141,8 +143,8 @@ function +{T}(J::ClosedInterval{T}, K::ClosedInterval{T})
         return J
     end
 
-    a::T = min(J.L, K.L)   # left end point of result
-    b::T = max(J.R, K.R)   # right end point of result
+    a = min(J.L, K.L)   # left end point of result
+    b = max(J.R, K.R)   # right end point of result
 
     return ClosedInterval(a,b,false)
 end

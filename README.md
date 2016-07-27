@@ -31,7 +31,8 @@ This example illustrates a few points.
 square brackets.
 * Second, the end points can be specified in either order.
 * Third, the interval can be constructed from a tuple.
-* Finally, the type of the two end points need not be the same. Julia's promotion mechanism selects an appropriate
+* Finally, the type of the two end points need not be the same.
+Julia's promotion mechanism selects an appropriate
 common type for the two end points.
 
 
