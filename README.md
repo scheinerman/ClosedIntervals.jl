@@ -170,7 +170,7 @@ julia> C+D
 Infinite Intervals
 ------------------
 
-When intervals have end points are floating points numbers,
+When intervals have end points that are floating points numbers,
 it is possible to work with infinite intervals.
 Everything works as one might expect.
 ```julia
