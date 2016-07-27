@@ -210,7 +210,12 @@ intervals. As usual, equality may be checked with `==` (or
 
 ### Subset
 
-Use `issubset(J,K)` to  test if `J` is contained in `J`.
+Use `issubset(J,K)` to  test if `J` is contained in `K`. The following
+comparison operations work as expected:
++ `J ⊆ K` -- subset, same as `issubset(J,K)`
++ `J ⊊ K` -- proper subset
++ `J ⊇ K` -- superset
++ `J ⊋ K` -- proper superset
 
 ###Lexicographic total order
 

@@ -3,7 +3,10 @@ module ClosedIntervals
 import Base.show, Base.isempty, Base.in, Base.length, Base.<<, Base.>>
 import Base.isequal, Base.isless
 import Base.*, Base.+, Base.==, Base.hash, Base.issubset
-export ClosedInterval, EmptyInterval
+import Base.⊊ # Base.⊇, Base.⊋
+
+
+export ClosedInterval, EmptyInterval, ⊇, ⊋
 export show, left, right
 
 # Create the ClosedInterval type
@@ -219,5 +222,10 @@ function issubset(J::ClosedInterval, K::ClosedInterval)
 
   return in(J.L,K) && in(J.R,K)
 end
+
+(⊇)(J::ClosedInterval,K::ClosedInterval) = issubset(K,J)
+
+(⊊)(J::ClosedInterval,K::ClosedInterval) = issubset(J,K) && !(J==K)
+(⊋)(J::ClosedInterval,K::ClosedInterval) = issubset(K,J) && !(J==K)
 
 end # module
