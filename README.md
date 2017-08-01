@@ -217,7 +217,7 @@ comparison operations work as expected:
 + `J ⊇ K` -- superset
 + `J ⊋ K` -- proper superset
 
-###Lexicographic total order
+### Lexicographic total order
 
 We also define `isless` for intervals as follows. An empty interval is
 defined to be less than all nonempty intervals. Otherwise, we sort
@@ -245,7 +245,7 @@ julia> A < B
 true
 ```
 
-###Completely-to-the-left-of partial order
+### Completely-to-the-left-of partial order
 
 We use `<<` to test if one interval is completely to the left of another.
 That is `[a,b]<<[c,d]` exactly when `b<c`. In this case, comparing an
