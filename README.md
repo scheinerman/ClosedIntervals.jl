@@ -201,7 +201,7 @@ false
 Comparison
 ----------
 
-###Equality
+### Equality
 
 The usual comparison operators may be applied to pairs of
 intervals. As usual, equality may be checked with `==` (or
