@@ -10,7 +10,7 @@ export ClosedInterval, EmptyInterval, ⊇, ⊋
 export show, left, right
 
 # Create the ClosedInterval type
-immutable ClosedInterval{T}
+struct ClosedInterval{T}
     L::T       # left end point
     R::T       # right end point
     nil::Bool  # signal if this is an empty interval
