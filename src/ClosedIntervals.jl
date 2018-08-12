@@ -3,7 +3,7 @@ module ClosedIntervals
 import Base.show, Base.isempty, Base.in, Base.length, Base.<<, Base.>>
 import Base.isequal, Base.isless
 import Base.*, Base.+, Base.==, Base.hash, Base.issubset
-import Base.⊊ # Base.⊇, Base.⊋
+import Base.⊊, Base.⊇, Base.⊋
 
 
 export ClosedInterval, EmptyInterval, ⊇, ⊋
@@ -26,7 +26,7 @@ function ClosedInterval(l,r)
 end
 
 # Construct from a 2-tuple
-function ClosedInterval{S,T}(ab::Tuple{S,T})
+function ClosedInterval(ab::Tuple{S,T}) where {S,T}
     return ClosedInterval(ab[1],ab[2]) # use 2-arg to test order
 end
 
@@ -89,7 +89,7 @@ end
 """
 `length(I)` is the length of the `ClosedInterval` `I`.
 """
-function length{T}(J::ClosedInterval{T})
+function length(J::ClosedInterval{T}) where T
     if isempty(J)
       return zero(T)
     end
