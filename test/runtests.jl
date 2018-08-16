@@ -1,4 +1,4 @@
-using Base.Test
+using Test
 using ClosedIntervals
 
 A = ClosedInterval(1,5)
