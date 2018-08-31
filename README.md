@@ -303,10 +303,16 @@ However, some operations will fail if they rely on numeric
 operations. For example:
 ```julia
 julia> length(J)
-ERROR: MethodError: `-` has no method matching -(::ASCIIString, ::ASCIIString)
- in length at /home/ers/.julia/v0.4/ClosedIntervals/src/ClosedIntervals.jl:92
+ERROR: MethodError: `-` has no method matching -(::String, ::String)
 
 julia> J*K
-ERROR: MethodError: `zero` has no method matching zero(::Type{ASCIIString})
- in * at /home/ers/.julia/v0.4/ClosedIntervals/src/ClosedIntervals.jl:120
+ERROR: MethodError: no method matching zero(::Type{String})
 ```
+
+
+<hr>
+
+
+See also [IntervalSets](https://github.com/JuliaMath/IntervalSets.jl) for another approach. We permit the union of disjoint intervals,
+with the result being the smallest interval containing both.
+The `IntervalSets` module considers this to be an error.
