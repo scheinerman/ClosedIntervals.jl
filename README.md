@@ -364,7 +364,7 @@ ERROR: ArgumentError: Cannot construct union of disjoint sets.
 
 The two modules have different implementations of the `length` function. 
 * In the `ClosedIntervals` module, `length` is simply the difference between the right and left end point values. 
-* In `IntervalSets`, one can only apply `length` to intervals with integer end points, in which case the `length` is the number of integers in the set.
+* In `IntervalSets`, one can only apply `length` to intervals with integer end points, in which case the `length` is the number of integers in the set. Instead, use `width` to determine the distance between the end points. 
 
 ```julia
 julia> using ClosedIntervals
@@ -385,6 +385,9 @@ julia> length(ClosedInterval(1,4))
 
 julia> length(ClosedInterval(1.0,4.0))
 ERROR: MethodError: no method matching length(::ClosedInterval{Float64})
+
+julia> width(ClosedInterval(1.0,4.0))
+3.0
 ```
 
 
