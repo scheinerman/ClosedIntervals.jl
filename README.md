@@ -312,7 +312,79 @@ ERROR: MethodError: no method matching zero(::Type{String})
 
 <hr>
 
+## `ClosedIntervals` vs `IntervalSets`
 
-See also [IntervalSets](https://github.com/JuliaMath/IntervalSets.jl) for another approach. We permit the union of disjoint intervals,
-with the result being the smallest interval containing both.
-The `IntervalSets` module considers this to be an error.
+The [IntervalSets](https://github.com/JuliaMath/IntervalSets.jl) module also defines a `ClosedInterval` type that 
+has some notable differences in how intervals are handled.
+
+### Construction
+
+In `ClosedIntervals`, the end points may be specified in either order, while in `IntervalSets` if the left end point is 
+greater than the right, an empty interval results. Also, the `IntervalSets` module provides a nifty `..` operator for making
+intervals.
+
+```julia 
+julia> using ClosedIntervals
+
+julia> ClosedInterval(1,2) == ClosedInterval(2,1)
+true
+```
+
+```julia
+julia> using IntervalSets
+
+julia> ClosedInterval(1,2) == ClosedInterval(2,1)
+false
+
+julia> ClosedInterval(1,2) == 1..2
+true
+```
+
+### Unions
+
+In the `ClosedIntervals` module, the union of two intervals is the smallest interval containing both. In particular, we 
+permit the union of disjoint intervals. We use the plus sign `+` (and `*` for intersection). 
+
+```
+julia> ClosedInterval(1,2) + ClosedInterval(3,4)
+[1,4]
+
+julia> ClosedInterval(1,2) * ClosedInterval(3,4)
+[]
+```
+
+`IntervalSets` is stricter; forming the union of disjoint intervals is an error.
+
+```julia
+julia> ClosedInterval(1,2) ∪ ClosedInterval(3,4)
+ERROR: ArgumentError: Cannot construct union of disjoint sets.
+```
+
+### Length
+
+The two modules have different implementations of the `length` function. 
+* In the `ClosedIntervals` module, `length` is simply the difference between the right and left end point values. 
+* In `IntervalSets`, one can only apply `length` to intervals with integer end points, in which case the `length` is the number of integers in the set.
+
+```julia
+julia> using ClosedIntervals
+
+julia> length(ClosedInterval(1,4))
+3
+
+julia> length(ClosedInterval(1.0,4.0))
+3.0
+```
+
+
+```julia
+julia> using IntervalSets
+
+julia> length(ClosedInterval(1,4))
+4
+
+julia> length(ClosedInterval(1.0,4.0))
+ERROR: MethodError: no method matching length(::ClosedInterval{Float64})
+```
+
+
