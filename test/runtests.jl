@@ -26,3 +26,10 @@ C = ClosedInterval(3,6)
 @test A ∧ B == C
 @test A+B == ClosedInterval(1,8)
 @test A ∨ B == ClosedInterval(1,8)
+
+J = ClosedInterval(0,0)
+K = EmptyInterval(Int)
+@test J != K
+
+KK = EmptyInterval(Float64)
+@test K==KK
