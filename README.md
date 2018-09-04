@@ -145,11 +145,12 @@ Two operations are defined for intervals.
 
 * The intersection `*` is the largest interval contained
 in both. If the intervals are disjoint, this returns an
-empty interval.
-* The sum `+` is the smallest interval containing both.
+empty interval. Also available as `∧`.
+* The sum `+` is the smallest interval containing both
+(i.e., the join of the intervals).
 If the  intervals overlap, then this is the same as their
 union. Note that the empty interval serves as an identity
-element for this operation.
+element for this operation. Also available as `∨`.
 
 ```julia
 julia> A = ClosedInterval(1,5)
@@ -314,16 +315,16 @@ ERROR: MethodError: no method matching zero(::Type{String})
 
 ## `ClosedIntervals` vs `IntervalSets`
 
-The [IntervalSets](https://github.com/JuliaMath/IntervalSets.jl) module also defines a `ClosedInterval` type that 
+The [IntervalSets](https://github.com/JuliaMath/IntervalSets.jl) module also defines a `ClosedInterval` type that
 has some notable differences in how intervals are handled.
 
 ### Construction
 
-In `ClosedIntervals`, the end points may be specified in either order, while in `IntervalSets` if the left end point is 
+In `ClosedIntervals`, the end points may be specified in either order, while in `IntervalSets` if the left end point is
 greater than the right, an empty interval results. Also, the `IntervalSets` module provides a nifty `..` operator for making
 intervals.
 
-```julia 
+```julia
 julia> using ClosedIntervals
 
 julia> ClosedInterval(1,2) == ClosedInterval(2,1)
@@ -340,31 +341,34 @@ julia> ClosedInterval(1,2) == 1..2
 true
 ```
 
-### Unions
+### Union/Join
 
-In the `ClosedIntervals` module, the union of two intervals is the smallest interval containing both. In particular, we 
-permit the union of disjoint intervals. We use the plus sign `+` (and `*` for intersection). 
+In the `ClosedIntervals` module, the join `J ∨ K` or `J + K` of two intervals is
+the smallest interval containing both. In particular, we permit the join of
+disjoint intervals. The intervals may be disjoint.
 
 ```
-julia> ClosedInterval(1,2) + ClosedInterval(3,4)
+julia> ClosedInterval(1,2) ∨ ClosedInterval(3,4)
 [1,4]
-
-julia> ClosedInterval(1,2) * ClosedInterval(3,4)
-[]
 ```
 
-`IntervalSets` is stricter; forming the union of disjoint intervals is an error.
+The `IntervalSets` module provides for the union of intervals.
+If the two intervals are disjoint, their set-theoretic union is not an
+interval and results in an error.
 
 ```julia
 julia> ClosedInterval(1,2) ∪ ClosedInterval(3,4)
 ERROR: ArgumentError: Cannot construct union of disjoint sets.
 ```
 
-### Length
+Note that the intersection (`IntervalSets`) and meet (`ClosedIntervals`) of
+two intervals are the same.
 
-The two modules have different implementations of the `length` function. 
-* In the `ClosedIntervals` module, `length` is simply the difference between the right and left end point values. 
-* In `IntervalSets`, one can only apply `length` to intervals with integer end points, in which case the `length` is the number of integers in the set. Instead, use `width` to determine the distance between the end points. 
+### Length/Width
+
+The two modules have different implementations of the `length` function.
+* In the `ClosedIntervals` module, `length` is simply the difference between the right and left end point values.
+* In `IntervalSets`, one can only apply `length` to intervals with integer end points, in which case the `length` is the number of integers in the set. Instead, use `width` to determine the distance between the end points.
 
 ```julia
 julia> using ClosedIntervals
@@ -389,5 +393,3 @@ ERROR: MethodError: no method matching length(::ClosedInterval{Float64})
 julia> width(ClosedInterval(1.0,4.0))
 3.0
 ```
-
-

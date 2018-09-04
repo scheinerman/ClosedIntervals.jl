@@ -7,7 +7,7 @@ import Base.⊊, Base.⊇, Base.⊋
 
 
 export ClosedInterval, EmptyInterval, ⊇, ⊋
-export show, left, right
+export show, left, right, ∨, ∧
 
 # Create the ClosedInterval type
 struct ClosedInterval{T}
@@ -108,7 +108,8 @@ end
 # The intersection of two intervals is the largest interval contained
 # in both. If the intervals are disjoint, we return an empty interval.
 """
-For `ClosedInterval`s `I` and `J`, `I*J` is their intersection.
+For `ClosedInterval`s `J` and `K`, `J*K` is their intersection.
+Also available as `J ∧ K`.
 """
 function *(J::ClosedInterval, K::ClosedInterval)
 
@@ -128,12 +129,18 @@ function *(J::ClosedInterval, K::ClosedInterval)
     return ClosedInterval(a,b,false)
 end
 
+"""
+`J ∧ K` is the largest `ClosedInterval` contained in both.
+See also `*`.
+"""
+(∧)(J::ClosedInterval, K::ClosedInterval) = J*K
+
 # The + of two intervals is the smallest interval containing them
 # both. This is the same as their union if they overlap.
 
 """
-For `ClosedInterval`s `I` and `J`, `I+J` is the smallest `ClosedInterval`
-containing them both.
+For `ClosedInterval`s `J` and `K`, `J+K` is the smallest `ClosedInterval`
+containing them both. This is also available as `J ∨ K`.
 """
 function +(J::ClosedInterval, K::ClosedInterval)
     # The empty interval acts as an identity element for this
@@ -151,6 +158,12 @@ function +(J::ClosedInterval, K::ClosedInterval)
 
     return ClosedInterval(a,b,false)
 end
+
+"""
+`J ∨ K` is the smalles `ClosedInterval` containing both. See also `+`.
+"""
+(∨)(J::ClosedInterval, K::ClosedInterval)= J+K
+
 
 # Compare intervals for equality
 function isequal(I::ClosedInterval, J::ClosedInterval)

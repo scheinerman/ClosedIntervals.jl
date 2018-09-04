@@ -23,4 +23,6 @@ B = ClosedInterval(8,3)
 C = ClosedInterval(3,6)
 
 @test A*B == C
+@test A ∧ B == C
 @test A+B == ClosedInterval(1,8)
+@test A ∨ B == ClosedInterval(1,8)
