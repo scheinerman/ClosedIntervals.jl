@@ -26,6 +26,12 @@ julia> ClosedInterval(8,2)
 julia> a = (6,0)
 (6,0)
 
+julia> 5 .. 2  # dot-dot notation works to create a ClosedInterval
+[2,5]
+
+julia> 5 ± 2   # a ± b creates the interval from a-b to a+b
+[3,7]
+
 julia> ClosedInterval(a)
 [0,6]
 
@@ -320,9 +326,9 @@ has some notable differences in how intervals are handled.
 
 ### Construction
 
-In `ClosedIntervals`, the end points may be specified in either order, while in `IntervalSets` if the left end point is
-greater than the right, an empty interval results. Also, the `IntervalSets` module provides a nifty `..` operator for making
-intervals.
+In `ClosedIntervals`, the end points may be specified in either order,
+while in `IntervalSets` if the left end point is
+greater than the right, an empty interval results.
 
 ```julia
 julia> using ClosedIntervals
@@ -336,9 +342,6 @@ julia> using IntervalSets
 
 julia> ClosedInterval(1,2) == ClosedInterval(2,1)
 false
-
-julia> ClosedInterval(1,2) == 1..2
-true
 ```
 
 ### Union/Join
@@ -367,8 +370,11 @@ two intervals are the same.
 ### Length/Width
 
 The two modules have different implementations of the `length` function.
-* In the `ClosedIntervals` module, `length` is simply the difference between the right and left end point values.
-* In `IntervalSets`, one can only apply `length` to intervals with integer end points, in which case the `length` is the number of integers in the set. Instead, use `width` to determine the distance between the end points.
+* In the `ClosedIntervals` module, `length` is simply the difference between
+the right and left end point values.
+* In `IntervalSets`, one can only apply `length` to intervals with integer
+end points, in which case the `length` is the number of integers in the set.
+Instead, use `width` to determine the distance between the end points.
 
 ```julia
 julia> using ClosedIntervals

@@ -7,7 +7,7 @@ import Base.⊊, Base.⊇, Base.⊋
 
 
 export ClosedInterval, EmptyInterval, ⊇, ⊋
-export show, left, right, ∨, ∧
+export show, left, right, ∨, ∧, .., ±
 
 # Create the ClosedInterval type
 struct ClosedInterval{T}
@@ -24,6 +24,13 @@ function ClosedInterval(l,r)
     end
     return ClosedInterval(a,b,false)
 end
+
+# dot-dot Construction
+(..)(a,b) = ClosedInterval(a,b)
+
+# plus-minus consruction
+±(a,b) = ClosedInterval(a-b,a+b)
+
 
 # Construct from a 2-tuple
 function ClosedInterval(ab::Tuple{S,T}) where {S,T}

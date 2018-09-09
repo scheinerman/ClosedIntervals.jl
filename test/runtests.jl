@@ -33,3 +33,6 @@ K = EmptyInterval(Int)
 
 KK = EmptyInterval(Float64)
 @test K==KK
+
+@test 5..3 == ClosedInterval(3,5)
+@test 2±1  == ClosedInterval(1,3)
