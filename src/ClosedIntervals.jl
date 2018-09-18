@@ -1,3 +1,4 @@
+
 module ClosedIntervals
 
 import Base.show, Base.isempty, Base.in, Base.length, Base.<<, Base.>>
@@ -5,9 +6,10 @@ import Base.isequal, Base.isless
 import Base.*, Base.+, Base.==, Base.hash, Base.issubset
 import Base.⊊, Base.⊇, Base.⊋
 
+import AbstractLattices: ∨, ∧
 
 export ClosedInterval, EmptyInterval, ⊇, ⊋
-export show, left, right, ∨, ∧, .., ±
+export show, left, right, .., ±, ∨, ∧
 
 # Create the ClosedInterval type
 struct ClosedInterval{T}
