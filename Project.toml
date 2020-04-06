@@ -1,0 +1,14 @@
+name = "ClosedIntervals"
+uuid = "059b0e18-018a-5deb-a5b2-c624ee85784b"
+
+[deps]
+AbstractLattices = "398f06c4-4d28-53ec-89ca-5b2656b7603d"
+
+[compat]
+julia = "≥ 0.7.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
