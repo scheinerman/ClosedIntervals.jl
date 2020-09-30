@@ -6,7 +6,6 @@ ClosedIntervals
 
 [![Build Status](https://travis-ci.com/scheinerman/ClosedIntervals.jl.svg?branch=master)](https://travis-ci.com/scheinerman/ClosedIntervals.jl)
 
-[![Coverage Status](https://coveralls.io/repos/scheinerman/ClosedIntervals.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/scheinerman/ClosedIntervals.jl?branch=master)
 
 [![codecov.io](http://codecov.io/github/scheinerman/ClosedIntervals.jl/coverage.svg?branch=master)](http://codecov.io/github/scheinerman/ClosedIntervals.jl?branch=master)
 
