@@ -4,11 +4,6 @@ ClosedIntervals
 ===============
 
 
-[![Build Status](https://travis-ci.com/scheinerman/ClosedIntervals.jl.svg?branch=master)](https://travis-ci.com/scheinerman/ClosedIntervals.jl)
-
-
-[![codecov.io](http://codecov.io/github/scheinerman/ClosedIntervals.jl/coverage.svg?branch=master)](http://codecov.io/github/scheinerman/ClosedIntervals.jl?branch=master)
-
 
 The `ClosedIntervals` module defines a data type `ClosedInterval` that
 represents a set of the form `[a,b] = {x: a <= x <= b}`. Typically, a
