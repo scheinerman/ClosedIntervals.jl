@@ -2,4 +2,4 @@
 # julia --color=yes --project make.jl
 
 using Documenter, ClosedIntervals
-makedocs(; sitename="AbstractLattices")
+makedocs(; sitename="ClosedIntervals")
