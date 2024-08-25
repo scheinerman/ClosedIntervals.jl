@@ -1,6 +1,6 @@
 name = "ClosedIntervals"
 uuid = "059b0e18-018a-5deb-a5b2-c624ee85784b"
-version = "0.3.1"
+version = "0.3.2"
 [deps]
 AbstractLattices = "398f06c4-4d28-53ec-89ca-5b2656b7603d"
 
